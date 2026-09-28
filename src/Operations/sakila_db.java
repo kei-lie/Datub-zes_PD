@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import db.DatabaseConnection;
+import Operations.ViewManager;
 //import operation.DeleteOperation;
 //import operation.InsertOperation;
 //import operation.SelectOperation;
@@ -56,9 +57,18 @@ public class sakila_db {
 					+ "0. Atpakaļ (RETURN)\n"
 					+ "Izvēle: ");
 			String c = scan.nextLine().trim();
+			boolean limit = false;
+			
+			
 			
 			switch(c) {
-				case "1" -> selectOp.select(con, table);
+				case "1" -> {
+					
+					
+					
+					
+					selectOp.select(con, table);
+				}
 //				case "2" -> insertOp.insert(con, table);
 //				case "3" -> updateOp.update(con, table);
 //				case "4" -> deleteOp.delete(con, table);
@@ -76,7 +86,7 @@ public class sakila_db {
 			boolean running = true;
 		
 			SelectOperation selectOp = new SelectOperation();
-//			ViewManager viewManager = new ViewManager(con, selectOp, scan);
+			ViewManager viewManager = new ViewManager(con, selectOp, scan);
 //			InsertOperation insertOp = new InsertOperation();
 //			UpdateOperation updateOp = new UpdateOperation();
 //			DeleteOperation deleteOp = new DeleteOperation();
@@ -99,8 +109,7 @@ public class sakila_db {
 				}
 				
 				case "2" -> 
-				System.out.println("Darbs procesā...");
-				//viewManager.showViewsMenu();
+				viewManager.showViewsMenu();
 				
 				case "0" -> running = false;
 				
