@@ -57,17 +57,22 @@ public class sakila_db {
 					+ "0. Atpakaļ (RETURN)\n"
 					+ "Izvēle: ");
 			String c = scan.nextLine().trim();
-			boolean limit = false;
 			
 			
 			
 			switch(c) {
 				case "1" -> {
 					
+					System.out.println("Vai limitēt SELECT rindu skaitu?(J/N)");
+					String atbilde = scan.nextLine();
 					
+					if(atbilde == "J") {
+						System.out.println("Kāds būs rindu skaits?");
+						int sk = scan.nextInt();
+						selectOp.selectLimit(con, table, sk);
+					}else if(atbilde == "N") selectOp.select(con, table);
+					else if(atbilde != "J" || atbilde != "N") System.out.println("Nepareiza datu ievade");
 					
-					
-					selectOp.select(con, table);
 				}
 //				case "2" -> insertOp.insert(con, table);
 //				case "3" -> updateOp.update(con, table);
