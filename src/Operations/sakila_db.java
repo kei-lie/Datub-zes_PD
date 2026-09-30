@@ -7,7 +7,7 @@ import java.util.Scanner;
 import db.DatabaseConnection;
 import Operations.ViewManager;
 //import operation.DeleteOperation;
-//import operation.InsertOperation;
+import Operations.InsertOperation;
 //import operation.SelectOperation;
 //import operation.UpdateOperation;
 
@@ -26,7 +26,7 @@ public class sakila_db {
 			System.out.println(CYAN + "\n ----- TABULAS -----\n" + RESET
 					+ "1. CITY\n"
 					+ "2. ACTOR\n"
-					+ "3. INVENTORY\n"
+					+ "3. CUSTOMER\n"
 					+ "4. STORE\n"
 					+ "0. Atpakaļ\n"
 					+ "Izvēlies tabulu: ");
@@ -35,7 +35,7 @@ public class sakila_db {
 			return switch(c) {
 			case "1" -> "city";
 			case "2" -> "actor";
-			case "3" -> "inventory";
+			case "3" -> "customer";
 			case "4" -> "store";
 			case "0" -> "exit";
 			default -> {
@@ -46,7 +46,7 @@ public class sakila_db {
 	}
 }
 	
-	private static void tableMenu(String table, SelectOperation selectOp) {
+	private static void tableMenu(String table, SelectOperation selectOp, InsertOperation insertOp) {
 		boolean back = false;
 		while (!back) {
 			System.out.println("\n--- " + table.toUpperCase() + " ---\n"
@@ -74,7 +74,7 @@ public class sakila_db {
 //					}else if(atbilde == "N") selectOp.select(con, table);
 					
 				}
-//				case "2" -> insertOp.insert(con, table);
+				case "2" -> insertOp.insert(con, table);
 //				case "3" -> updateOp.update(con, table);
 //				case "4" -> deleteOp.delete(con, table);
 				case "0" -> back = true;
@@ -92,7 +92,7 @@ public class sakila_db {
 		
 			SelectOperation selectOp = new SelectOperation();
 			ViewManager viewManager = new ViewManager(con, selectOp, scan);
-//			InsertOperation insertOp = new InsertOperation();
+			InsertOperation insertOp = new InsertOperation();
 //			UpdateOperation updateOp = new UpdateOperation();
 //			DeleteOperation deleteOp = new DeleteOperation();
 		
@@ -108,7 +108,7 @@ public class sakila_db {
 				case "1" -> {
 					String table = chooseTable();
 					if(!table.equals("exit")) {
-						tableMenu(table, selectOp);
+						tableMenu(table, selectOp, insertOp);
 //						, insertOp, updateOp, deleteOp
 					}
 				}
