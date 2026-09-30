@@ -4,4 +4,4 @@
   - [ ] Realizēt kolonnu krāsošanos
   - [ ] Realizēt LIMIT funkciju
 #### Papildus:
-- [ ] Skatu funkcijas izveidošana
+- [x] Skatu funkcijas izveidošana
