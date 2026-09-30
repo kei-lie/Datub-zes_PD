@@ -62,16 +62,16 @@ public class sakila_db {
 			
 			switch(c) {
 				case "1" -> {
+					selectOp.select(con, table);
+//					System.out.println("Vai limitēt SELECT rindu skaitu?(J/N)");
+//					String atbilde = scan.nextLine();
 					
-					System.out.println("Vai limitēt SELECT rindu skaitu?(J/N)");
-					String atbilde = scan.nextLine();
-					
-					if(atbilde == "J") {
-						System.out.println("Kāds būs rindu skaits?");
-						int sk = scan.nextInt();
-						selectOp.selectLimit(con, table, sk);
-					}else if(atbilde == "N") selectOp.select(con, table);
-					else if(atbilde != "J" || atbilde != "N") System.out.println("Nepareiza datu ievade");
+//					while(atbilde != "J" || atbilde != "N") System.out.println("Nepareiza datu ievade");
+//					if(atbilde == "J") {
+//						System.out.println("Kāds būs rindu skaits?");
+//						int sk = scan.nextInt();
+//						selectOp.selectLimit(con, table, sk);
+//					}else if(atbilde == "N") selectOp.select(con, table);
 					
 				}
 //				case "2" -> insertOp.insert(con, table);
