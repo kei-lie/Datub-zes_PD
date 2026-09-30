@@ -92,18 +92,52 @@ public class InsertOperation {
 	
 	private void insertFilm(Connection con) throws SQLException {
 		//Trūkst ievades datu pārbaude
-		System.out.println("Ievadi pārvaldītāja darbinieka ID:");
-		String manager_id = scan.nextLine();
-		System.out.println("Ievadi adreses ID:");
-		String address_id = scan.nextLine();
+		System.out.println("Ievadi filmas nosaukumu:");
+		String title = scan.nextLine();
+		System.out.println("Ievadi filmas aprakstu:");
+		String desc = scan.nextLine();
+		System.out.println("Norādi iznākšanas gadu:");
+		int release = scan.nextInt();
+		scan.nextLine();
+		System.out.println("Ievadi valodas ID:");
+		int language = scan.nextInt();
+		scan.nextLine();
+		System.out.println("Ievadi īrēšanas garumu:");
+		int rental = scan.nextInt();
+		scan.nextLine();
+		 
+		System.out.println("Ievadi filmas ilgumu minūtēs:");
+		int length = scan.nextInt();
+		scan.nextLine();
+		System.out.println("Cik izmaksās aizstāšana?");
+		double replace = scan.nextDouble();
+		System.out.println("Ievadi filmas vecuma ierobežojumu:");
+		String rating = scan.nextLine();
+		System.out.println("Ievadi īpašās detaļas:");
+		String specialFeat = scan.nextLine();
 		
-		String sql = "INSERT INTO store (manager_staff_id, address_id) VALUES (?, ?)";
+		
+		String sql = "INSERT INTO country (Code, Name, Continent, Region, SurfaceArea, IndepYear, Population, LifeExpectancy, "
+				+ "GNP, GNPOld, LocalName, GovernmentForm, HeadOfState, Capital, Code2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try(PreparedStatement ps = con.prepareStatement(sql)){
-			ps.setString(1, manager_id);
-			ps.setString(2, address_id);
+			ps.setString(1, code);
+			ps.setString(2, name);
+			ps.setString(3, continent);
+			ps.setString(4, region);
+			ps.setInt(5, surfaceArea);
+			ps.setInt(6, indepYear);
+			ps.setInt(7, population);
+			ps.setInt(8, lifeExp);
+			ps.setInt(9, GNP);
+			ps.setInt(10, GNPOld);
+			ps.setString(11, LocalName);
+			ps.setString(12, GovernForm);
+			ps.setString(13, headState);
+			ps.setString(14, capital);
+			ps.setInt(15, code2);
 			int rows = ps.executeUpdate();
-			System.out.println("STORE tabulā ievietotas: "+rows+" rindas");
+			System.out.println("CITY tabulā ievietotas: "+rows+" rindas");
 		}
 	}
 }
