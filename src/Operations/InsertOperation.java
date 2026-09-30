@@ -13,7 +13,7 @@ public class InsertOperation {
 			case "city" -> insertCity(con);
 			case "actor" -> insertActor(con);
 			case "customer" -> insertCustomer(con);
-//			case "store" -> insertStore(con);
+			case "film" -> insertFilm(con);
 			default -> System.out.println("Neatbalstīta tabula: "+table);
 			}
 		}catch(SQLException e){
@@ -76,7 +76,7 @@ public class InsertOperation {
 		scan.nextLine();
 		
 		
-		String sql = "INSERT INTO country (store_id, first_name, last_name, email, adress_id, active) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO customer (store_id, first_name, last_name, email, address_id, active) VALUES (?, ?, ?, ?, ?, ?)";
 		
 		try(PreparedStatement ps = con.prepareStatement(sql)){
 			ps.setInt(1, store_id);
@@ -87,6 +87,23 @@ public class InsertOperation {
 			ps.setInt(6, active);
 			int rows = ps.executeUpdate();
 			System.out.println("CUSTOMER tabulā ievietotas: "+rows+" rindas");
+		}
+	}
+	
+	private void insertFilm(Connection con) throws SQLException {
+		//Trūkst ievades datu pārbaude
+		System.out.println("Ievadi pārvaldītāja darbinieka ID:");
+		String manager_id = scan.nextLine();
+		System.out.println("Ievadi adreses ID:");
+		String address_id = scan.nextLine();
+		
+		String sql = "INSERT INTO store (manager_staff_id, address_id) VALUES (?, ?)";
+		
+		try(PreparedStatement ps = con.prepareStatement(sql)){
+			ps.setString(1, manager_id);
+			ps.setString(2, address_id);
+			int rows = ps.executeUpdate();
+			System.out.println("STORE tabulā ievietotas: "+rows+" rindas");
 		}
 	}
 }

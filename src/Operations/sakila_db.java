@@ -27,7 +27,7 @@ public class sakila_db {
 					+ "1. CITY\n"
 					+ "2. ACTOR\n"
 					+ "3. CUSTOMER\n"
-					+ "4. STORE\n"
+					+ "4. FILM\n"
 					+ "0. Atpakaļ\n"
 					+ "Izvēlies tabulu: ");
 			String c = scan.nextLine().trim();
@@ -36,7 +36,7 @@ public class sakila_db {
 			case "1" -> "city";
 			case "2" -> "actor";
 			case "3" -> "customer";
-			case "4" -> "store";
+			case "4" -> "film";
 			case "0" -> "exit";
 			default -> {
 				System.out.println("Nepareiza izvēle.");
