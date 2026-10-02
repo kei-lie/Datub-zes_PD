@@ -5,6 +5,6 @@
   - [ ] Realizēt LIMIT funkciju
 - [x] INSERT funkcijas realizēšana;
 - [x] DELETE funkcijas realizēšana;
-- [ ] UPDATE funkcijas realizēšana
+- [x] UPDATE funkcijas realizēšana
 #### Papildus:
 - [x] Skatu funkcijas izveidošana
