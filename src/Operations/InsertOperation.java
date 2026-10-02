@@ -92,6 +92,9 @@ public class InsertOperation {
 	
 	private void insertFilm(Connection con) throws SQLException {
 		//Trūkst ievades datu pārbaude
+
+		int language = 1;
+		
 		System.out.println("Ievadi filmas nosaukumu:");
 		String title = scan.nextLine();
 		System.out.println("Ievadi filmas aprakstu:");
@@ -99,43 +102,40 @@ public class InsertOperation {
 		System.out.println("Norādi iznākšanas gadu:");
 		int release = scan.nextInt();
 		scan.nextLine();
-		System.out.println("Ievadi valodas ID:");
-		int language = scan.nextInt();
-		scan.nextLine();
-		System.out.println("Ievadi īrēšanas garumu:");
+		
+		System.out.println("Ievadi īrēšanas ilgumu:");
 		int rental = scan.nextInt();
 		scan.nextLine();
+
+		System.out.println("Cik izmaksās īrēšana?");
+		double rentRate = scan.nextDouble();
 		 
 		System.out.println("Ievadi filmas ilgumu minūtēs:");
 		int length = scan.nextInt();
 		scan.nextLine();
 		System.out.println("Cik izmaksās aizstāšana?");
 		double replace = scan.nextDouble();
+		scan.nextLine();
 		System.out.println("Ievadi filmas vecuma ierobežojumu:");
 		String rating = scan.nextLine();
 		System.out.println("Ievadi īpašās detaļas:");
 		String specialFeat = scan.nextLine();
 		
 		
-		String sql = "INSERT INTO country (Code, Name, Continent, Region, SurfaceArea, IndepYear, Population, LifeExpectancy, "
-				+ "GNP, GNPOld, LocalName, GovernmentForm, HeadOfState, Capital, Code2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, "
+				+ "rating, special_features) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try(PreparedStatement ps = con.prepareStatement(sql)){
-			ps.setString(1, code);
-			ps.setString(2, name);
-			ps.setString(3, continent);
-			ps.setString(4, region);
-			ps.setInt(5, surfaceArea);
-			ps.setInt(6, indepYear);
-			ps.setInt(7, population);
-			ps.setInt(8, lifeExp);
-			ps.setInt(9, GNP);
-			ps.setInt(10, GNPOld);
-			ps.setString(11, LocalName);
-			ps.setString(12, GovernForm);
-			ps.setString(13, headState);
-			ps.setString(14, capital);
-			ps.setInt(15, code2);
+			ps.setString(1, title);
+			ps.setString(2, desc);
+			ps.setInt(3, release);
+			ps.setInt(4, language);
+			ps.setInt(5, rental);
+			ps.setDouble(6, rentRate);
+			ps.setInt(7, length);
+			ps.setDouble(8, replace);
+			ps.setString(9, rating);
+			ps.setString(10, specialFeat);
 			int rows = ps.executeUpdate();
 			System.out.println("CITY tabulā ievietotas: "+rows+" rindas");
 		}
