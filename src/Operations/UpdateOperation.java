@@ -5,24 +5,29 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class InsertOperation {
-	static Scanner scan = new Scanner(System.in);
-	public void insert (Connection con, String table) {
+public class UpdateOperation {
+static Scanner scan = new Scanner(System.in);
+	
+	public void update(Connection con, String table) {
 		try {
-			switch(table) {
-			case "city" -> insertCity(con);
-			case "actor" -> insertActor(con);
-			case "customer" -> insertCustomer(con);
-			case "film" -> insertFilm(con);
-			default -> System.out.println("Neatbalstīta tabula: "+table);
+			switch(table){
+			case "city" -> updateCity(con);
+			case "actor" -> updateActor(con);
+			case "customer" -> updateCustomer(con);
+			case "film" -> updateFilm(con);
+			default -> System.out.println("Neatbalstīta tabulla: "+table);
 			}
-		}catch(SQLException e){
-			System.out.println("INSERT kļūda: " + e.getMessage());
+			
+		}catch(SQLException e) {
+			System.out.println("UPDATE kļūda: " + e.getMessage());
 		}
 	}
 	
-	private void insertCity(Connection con) throws SQLException {
-		//Trūkst ievades datu pārbaude
+	private void updateCity(Connection con) throws SQLException{
+		System.out.println("Kuru pilsētu labot? Norādi ID:");
+		int ID = scan.nextInt();
+		scan.nextLine();
+		
 		System.out.println("Ievadi pilsētas nosaukumu:");
 		String name = scan.nextLine();
 		System.out.println("Ievadi valsts ID:");
@@ -30,35 +35,42 @@ public class InsertOperation {
 		
 		scan.nextLine();
 		
-		String sql = "INSERT INTO city (city, country_id) VALUES (?, ?)";
+		String sql = "UPDATE city SET city = ?, country_id = ? WHERE city_id = ?";
 		
 		try(PreparedStatement ps = con.prepareStatement(sql)){
 			ps.setString(1, name);
 			ps.setInt(2, countryID);
+			ps.setInt(3, ID);
 			int rows = ps.executeUpdate();
-			System.out.println("CITY tabulā ievietotas: "+rows+" rindas");
+			System.out.println("CITY tabulā atjaunots: "+rows+" rindas");
 		}
 	}
 	
-	private void insertActor(Connection con) throws SQLException {
-		//Trūkst ievades datu pārbaude
+	private void updateActor(Connection con) throws SQLException{
+		System.out.println("Kuru aktieri labot? Norādi ID:");
+		int ID = scan.nextInt();
+		scan.nextLine();
+		
 		System.out.println("Ievadi aktiera vārdu:");
 		String name = scan.nextLine();
 		System.out.println("Ievadi aktiera uzvārdu:");
 		String lastname = scan.nextLine();
 		
-		String sql = "INSERT INTO actor (first_name, last_name) VALUES (?, ?)";
+		String sql = "UPDATE actor SET first_name = ?, last_name = ? WHERE actor_id = ?";
 		
 		try(PreparedStatement ps = con.prepareStatement(sql)){
 			ps.setString(1, name);
 			ps.setString(2, lastname);
+			ps.setInt(3, ID);
 			int rows = ps.executeUpdate();
-			System.out.println("ACTOR tabulā ievietotas: "+rows+" rindas");
+			System.out.println("ACTOR tabulā atjaunots: "+rows+" rindas");
 		}
 	}
 	
-	private void insertCustomer(Connection con) throws SQLException {
-		//Trūkst ievades datu pārbaude
+	private void updateCustomer(Connection con) throws SQLException{
+		System.out.println("Kuru klientu labot? Norādi ID:");
+		int ID = scan.nextInt();
+		scan.nextLine();
 		System.out.println("Ievadi veikala ID:");
 		int store_id = scan.nextInt();
 		scan.nextLine();
@@ -75,8 +87,7 @@ public class InsertOperation {
 		int active = scan.nextInt();
 		scan.nextLine();
 		
-		
-		String sql = "INSERT INTO customer (store_id, first_name, last_name, email, address_id, active) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "UPDATE customer SET store_id = ?, first_name = ?, last_name = ?, email = ?, address_id = ?, active = ? WHERE customer_id = ?";
 		
 		try(PreparedStatement ps = con.prepareStatement(sql)){
 			ps.setInt(1, store_id);
@@ -85,16 +96,19 @@ public class InsertOperation {
 			ps.setString(4, email);
 			ps.setInt(5, adress_id);
 			ps.setInt(6, active);
+			ps.setInt(7, ID);
 			int rows = ps.executeUpdate();
-			System.out.println("CUSTOMER tabulā ievietotas: "+rows+" rindas");
+			System.out.println("CUSTOMER tabulā atjaunots: "+rows+" rindas");
 		}
 	}
 	
-	private void insertFilm(Connection con) throws SQLException {
-		//Trūkst ievades datu pārbaude
-
+	private void updateFilm(Connection con) throws SQLException{
+		System.out.println("Kuru filmu labot? Norādi ID:");
+		int ID = scan.nextInt();
+		scan.nextLine();
+		
 		// Izmet erroru ja ievada kaut ko lielāku par 1, bez vērtības neņem jo nav 'default'
-		int language = 1;
+				int language = 1;
 		
 		System.out.println("Ievadi filmas nosaukumu:");
 		String title = scan.nextLine();
@@ -122,9 +136,8 @@ public class InsertOperation {
 		System.out.println("Ievadi īpašās detaļas:");
 		String specialFeat = scan.nextLine();
 		
-		
-		String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, "
-				+ "rating, special_features) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "UPDATE film SET title = ?, description = ?, release_year = ?, language_id = ?, "
+				+ "rental_duration = ?, rental_rate = ?, length = ?, replacement_cost = ?, rating = ?, special_features = ? WHERE film_id = ?";
 		
 		try(PreparedStatement ps = con.prepareStatement(sql)){
 			ps.setString(1, title);
@@ -137,8 +150,9 @@ public class InsertOperation {
 			ps.setDouble(8, replace);
 			ps.setString(9, rating);
 			ps.setString(10, specialFeat);
+			ps.setInt(11, ID);
 			int rows = ps.executeUpdate();
-			System.out.println("FILM tabulā ievietotas: "+rows+" rindas");
+			System.out.println("FILM tabulā atjaunots: "+rows+" rindas");
 		}
 	}
 }
