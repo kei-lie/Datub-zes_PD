@@ -93,6 +93,7 @@ public class InsertOperation {
 	private void insertFilm(Connection con) throws SQLException {
 		//Trūkst ievades datu pārbaude
 
+		// Izmet erroru ja ievada kaut ko lielāku par 1, bez vērtības neņem jo nav 'default'
 		int language = 1;
 		
 		System.out.println("Ievadi filmas nosaukumu:");

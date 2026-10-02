@@ -5,10 +5,11 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import db.DatabaseConnection;
+
+import Operations.SelectOperation;
 import Operations.ViewManager;
-//import operation.DeleteOperation;
+import Operations.DeleteOperation;
 import Operations.InsertOperation;
-//import operation.SelectOperation;
 //import operation.UpdateOperation;
 
 public class sakila_db {
@@ -46,7 +47,7 @@ public class sakila_db {
 	}
 }
 	
-	private static void tableMenu(String table, SelectOperation selectOp, InsertOperation insertOp) {
+	private static void tableMenu(String table, SelectOperation selectOp, InsertOperation insertOp, DeleteOperation deleteOp) {
 		boolean back = false;
 		while (!back) {
 			System.out.println("\n--- " + table.toUpperCase() + " ---\n"
@@ -76,7 +77,7 @@ public class sakila_db {
 				}
 				case "2" -> insertOp.insert(con, table);
 //				case "3" -> updateOp.update(con, table);
-//				case "4" -> deleteOp.delete(con, table);
+				case "4" -> deleteOp.delete(con, table);
 				case "0" -> back = true;
 				default -> System.out.println("Nepareiza izvēle.");
 			}
@@ -94,7 +95,7 @@ public class sakila_db {
 			ViewManager viewManager = new ViewManager(con, selectOp, scan);
 			InsertOperation insertOp = new InsertOperation();
 //			UpdateOperation updateOp = new UpdateOperation();
-//			DeleteOperation deleteOp = new DeleteOperation();
+			DeleteOperation deleteOp = new DeleteOperation();
 		
 			while(running) {
 				System.out.println(CYAN + "\n----- SAKILA DB -----\n" + RESET
@@ -108,7 +109,7 @@ public class sakila_db {
 				case "1" -> {
 					String table = chooseTable();
 					if(!table.equals("exit")) {
-						tableMenu(table, selectOp, insertOp);
+						tableMenu(table, selectOp, insertOp, deleteOp);
 //						, insertOp, updateOp, deleteOp
 					}
 				}
