@@ -28,15 +28,14 @@ public class SelectOperation {
 			System.out.println();
 			System.out.println("_".repeat(colCount * colWidth));
 			
-			int rowIndex = 0;
+			int colInd = 0;
 			while(rs.next()) {
-				rowIndex++;
-				
-				String col = (rowIndex % 2 == 0) ? EVEN_ROW : ODD_ROW;
-				
-				System.out.println(col);
 				for(int i=1; i<=colCount; i++) {
 					String value = rs.getString(i);
+					
+					colInd++;
+					
+					String col = (colInd % 2 == 0) ? EVEN_ROW : ODD_ROW;
 					
 					if(value == null) value = "NULL";
 					
@@ -44,7 +43,7 @@ public class SelectOperation {
 						value = value.substring(0, colWidth - 5) + "...";
 					
 					String formattedValue = String.format("%-" + colWidth + "s", value);
-					System.out.print(formattedValue);
+					System.out.print(col + formattedValue);
 					
 				}
 				System.out.println(RESET);
@@ -54,6 +53,8 @@ public class SelectOperation {
 			System.out.println("SELECT kļūda: " + e.getMessage());
 		}
 	}
+	
+	//LIMITĒŠANAS SADAĻA
 	
 //	public void selectLimit(Connection con, String tableOrView, int sk) {
 //		String sql = "SELECT * FROM " + tableOrView + "LIMIT " + sk;

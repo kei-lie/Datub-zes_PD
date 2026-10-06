@@ -6,12 +6,6 @@ import java.util.Scanner;
 
 import db.DatabaseConnection;
 
-import Operations.SelectOperation;
-import Operations.ViewManager;
-import Operations.DeleteOperation;
-import Operations.InsertOperation;
-import Operations.UpdateOperation;
-
 public class sakila_db {
 	
 	private static Connection con;
