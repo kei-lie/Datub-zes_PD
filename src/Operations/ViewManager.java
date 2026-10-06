@@ -45,7 +45,8 @@ public class ViewManager {
 					int index = Integer.parseInt(choice) - 1;
 					
 					if(index >= 0 && index < views.size()) {
-						selectOp.select(con, views.get(index));
+						int sk = views.size();
+						selectOp.select(con, views.get(index), sk);
 						
 					}else {
 						System.out.println("Nepareizi izvēlēts skats!");

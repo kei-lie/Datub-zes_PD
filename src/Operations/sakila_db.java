@@ -57,16 +57,42 @@ public class sakila_db {
 			
 			switch(c) {
 				case "1" -> {
-					selectOp.select(con, table);
-//					System.out.println("Vai limitēt SELECT rindu skaitu?(J/N)");
-//					String atbilde = scan.nextLine();
+//					selectOp.select(con, table);
+					System.out.println("Vai limitēt SELECT rindu skaitu?(J/N)");
+					String atbilde = scan.nextLine().toUpperCase().trim();
 					
-//					while(atbilde != "J" || atbilde != "N") System.out.println("Nepareiza datu ievade");
-//					if(atbilde == "J") {
+					switch(atbilde) {
+					case "J" -> {
+						System.out.println("Kāds būs rindu skaits?");
+						int sk = scan.nextInt();
+						scan.nextLine();
+						if (sk < 0) {
+							System.out.println("Negatīvu skaitli ievadīt nevar, būs visas rindas.");
+							sk = 0;
+						}
+						else if (sk == 0) {
+							System.out.println("Nulle neder, būs visas rindas.");
+						}
+						selectOp.select(con, table, sk);
+						
+					}
+					case "N" -> {
+						int sk = 0;
+						selectOp.select(con, table, sk);
+					}
+					
+					default -> System.out.println("Nepareiza datu ievade.");
+					}
+//					while(!atbilde.equals("J") || !atbilde.equals("N")) {
+//					System.out.println("Nepareiza datu ievade");
+//					scan.nextLine();
+//					}
+//					if(atbilde.equals("J")) {
 //						System.out.println("Kāds būs rindu skaits?");
 //						int sk = scan.nextInt();
 //						selectOp.selectLimit(con, table, sk);
-//					}else if(atbilde == "N") selectOp.select(con, table);
+//					}else if(atbilde.equals("N")) 
+//						selectOp.select(con, table);
 					
 				}
 				case "2" -> insertOp.insert(con, table);
